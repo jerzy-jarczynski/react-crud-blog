@@ -10,8 +10,6 @@ const Posts = () => {
 
   const posts = useSelector(getAllPosts);
 
-  console.log(posts);
-
   return (
     <Row className="py-4">
       {
