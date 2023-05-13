@@ -8,7 +8,7 @@ const PostAdd = () => {
     <>
       <Row className="justify-content-center">
         <Col xs="12" md="10" lg="8">
-          <h1>Add post</h1>
+          <h1 className="mb-5">Add post</h1>
           <AddPostForm />
         </Col>
       </Row>
