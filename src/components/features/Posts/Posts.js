@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { NavLink } from 'react-router-dom';
+import { dateToStr } from "../../../utils/dateToStr";
 
 const Posts = () => {
 
@@ -24,7 +25,7 @@ const Posts = () => {
                 </div>
                 <div>
                   <span className="fw-bold">Published:&nbsp;</span>
-                  <span>{post.publishedDate}</span>
+                  <span>{dateToStr(post.publishedDate)}</span>
                 </div>
                 <Card.Text className="mt-2">
                   { post.shortDescription }

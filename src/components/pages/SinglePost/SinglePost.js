@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { NavLink, Navigate } from "react-router-dom";
 import { useState } from "react";
+import { dateToStr } from "../../../utils/dateToStr";
 
 const SinglePost = () => {
 
@@ -49,11 +50,10 @@ const SinglePost = () => {
             </div>
             <div>
               <span className="fw-bold">Published:&nbsp;</span>
-              <span>{postData.publishedDate}</span>
+              <span>{dateToStr(postData.publishedDate)}</span>
             </div>
           </div>
-          <article>
-            {postData.content}
+          <article dangerouslySetInnerHTML={{ __html: postData.content }}>
           </article>
         </Col>
       </Row>

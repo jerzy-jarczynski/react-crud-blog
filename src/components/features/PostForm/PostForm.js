@@ -4,18 +4,22 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import DatePicker from "react-datepicker";
+import 'react-datepicker/dist/react-datepicker.css';
 
 const PostForm = ({ action, actionText, ...props }) => {
 
   const [title, setTitle] = useState(props.title || '');
   const [author, setAuthor] = useState(props.author || '');
-  const [published, setPublished] = useState(props.published || '');
+  const [publishedDate, setPublishedDate] = useState(props.published || '');
   const [shortDescription, setShortDescription] = useState(props.shortDescription || '');
   const [content, setContent] = useState(props.content || '');
 
   const handleSubmit = e => {
     e.preventDefault();
-    action({ title, author, published, shortDescription, content });
+    action({ title, author, publishedDate, shortDescription, content });
   };
 
   return (
@@ -34,7 +38,7 @@ const PostForm = ({ action, actionText, ...props }) => {
 
           <Form.Group className="mb-3">
             <Form.Label>Published</Form.Label>
-            <Form.Control placeholder="Enter date in format DD-MM-YYYY" value={published} onChange={e => setPublished(e.target.value)} />
+            <DatePicker selected={publishedDate} onChange={date => setPublishedDate(date)} />
           </Form.Group>
         </Col>
         <Col xs="12">
@@ -44,8 +48,8 @@ const PostForm = ({ action, actionText, ...props }) => {
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Main content</Form.Label>
-            <Form.Control as="textarea" rows={20} placeholder="Enter main content here" value={content} onChange={e => setContent(e.target.value)} />
+            <Form.Label>Main content </Form.Label>
+            <ReactQuill theme="snow" value={content} placeholder="Leave a comment here" style={{ height: "300px", paddingBottom: "50px" }} onChange={setContent} />
           </Form.Group>
         </Col>
       </Row>
@@ -62,7 +66,7 @@ PostForm.propTypes = {
   actionText: PropTypes.string.isRequired,
   title: PropTypes.string,
   author: PropTypes.string,
-  published: PropTypes.string,
+  published: PropTypes.instanceOf(Date),
   shortDescription: PropTypes.string,
   content: PropTypes.string,
 };

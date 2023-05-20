@@ -12,7 +12,7 @@ const EDIT_POST = createActionName('EDIT_POST');
 
 // action creators
 export const removePost = payload => ({ type: REMOVE_POST, payload });
-export const addPost = payload => ({ type: ADD_POST, newPost: { ...payload }});
+export const addPost = payload => ({ type: ADD_POST, payload });
 export const editPost = payload => ({ type: EDIT_POST, payload });
 
 // action creators
@@ -21,7 +21,7 @@ const postsReducer = (statePart = [], action) => {
     case REMOVE_POST:
       return [...statePart.filter((post) => post.id !== action.payload)];
     case ADD_POST:
-      return [...statePart, { ...action.newPost, id: nanoid() }];
+      return [...statePart, { ...action.payload, id: nanoid() }];
     case EDIT_POST:
       return statePart.map(post => (post.id === action.payload.id ? { ...post, ...action.payload } : post));
     default:
