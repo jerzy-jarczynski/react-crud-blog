@@ -1,32 +1,48 @@
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+// bootstrap
+import { Row, Col, Form, Button } from 'react-bootstrap';
+// proptypes
 import PropTypes from 'prop-types';
+// React
 import { useState } from 'react';
+// ReactQuill
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+// DatePicker
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
+// Validation
 import { useForm } from "react-hook-form";
+// Redux
+import { useSelector } from 'react-redux';
+import { getAllCategories } from '../../../redux/categoriesRedux';
 
 const PostForm = ({ action, actionText, ...props }) => {
 
+  // local state
   const [title, setTitle] = useState(props.title || '');
   const [author, setAuthor] = useState(props.author || '');
   const [publishedDate, setPublishedDate] = useState(props.published || '');
+  const [selectedCategory, setSelectedCategory] = useState(props.category || '')
   const [shortDescription, setShortDescription] = useState(props.shortDescription || '');
   const [content, setContent] = useState(props.content || '');
+
+  // categories
+  const categories = useSelector(getAllCategories);
+
+  // validation
   const [contentError, setContentError] = useState(false);
   const [dateError, setDateError] = useState(false);
-
+  const [categoryError, setCategoryError] = useState(false);
   const { register, handleSubmit: validate, formState: { errors } } = useForm();
 
   const handleSubmit = () => {
+
     setContentError(!content);
     setDateError(!publishedDate);
-    if (content && publishedDate) {
-      action({ title, author, publishedDate, shortDescription, content });
+    setCategoryError(!selectedCategory);
+
+    if (content && publishedDate && selectedCategory) {
+      action({ title, author, publishedDate, selectedCategory, shortDescription, content });
     }
   };
 
@@ -62,6 +78,21 @@ const PostForm = ({ action, actionText, ...props }) => {
             <Form.Label>Published</Form.Label>
             <DatePicker selected={publishedDate} onChange={date => setPublishedDate(date)} />
             {dateError && <small className="d-block form-text text-danger mt-2">Date can't be empty</small>}
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicCategory">
+            <Form.Label>Category</Form.Label>
+            <Form.Select aria-label="Post category select" defaultValue={selectedCategory} onChange={e => setSelectedCategory(e.target.value)}>
+              <option value="" disabled hidden>Select category...</option>
+              {
+                categories.map(category => (
+                  <option key={category.id} value={category.name}>
+                    { category.name }
+                  </option>
+                ))
+              }
+            </Form.Select>
+            {categoryError && <small className="d-block form-text text-danger mt-2">You need to select a category</small>}
           </Form.Group>
         </Col>
         <Col xs="12">
@@ -99,6 +130,7 @@ PostForm.propTypes = {
   title: PropTypes.string,
   author: PropTypes.string,
   published: PropTypes.instanceOf(Date),
+  category: PropTypes.string,
   shortDescription: PropTypes.string,
   content: PropTypes.string,
 };

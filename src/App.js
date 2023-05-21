@@ -5,6 +5,8 @@ import SinglePost from "./components/pages/SinglePost/SinglePost";
 import PostAdd from "./components/pages/PostAdd/PostAdd";
 import PostEdit from "./components/pages/PostEdit/PostEdit";
 import About from "./components/pages/About/About";
+import Categories from './components/pages/Categories/Categories';
+import Category from './components/pages/Category/Category';
 import NotFound from "./components/pages/NotFound/NotFound";
 // views
 import Header from './components/views/Header/Header';
@@ -21,6 +23,8 @@ const App = () => {
           <Route path="/post/:id" element={<SinglePost />} />
           <Route path="/post/add" element={<PostAdd />} />
           <Route path="/post/edit/:id" element={<PostEdit />} />
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/category/:name" element={<Category />} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

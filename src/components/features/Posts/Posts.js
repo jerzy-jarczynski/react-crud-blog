@@ -1,15 +1,21 @@
-import { useSelector } from "react-redux";
-import { getAllPosts } from "../../../redux/postsRedux";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+// Bootstrap
+import { Row, Col, Button, Card } from "react-bootstrap";
+// Router
 import { NavLink } from 'react-router-dom';
+// Utils
 import { dateToStr } from "../../../utils/dateToStr";
 
-const Posts = () => {
+const Posts = ({ posts }) => {
 
-  const posts = useSelector(getAllPosts);
+  if (!posts) {
+    return (
+      <Row className="py-4">
+        <Col>
+          Nothing to show
+        </Col>
+      </Row>      
+    );
+  }
 
   return (
     <Row className="py-4">
@@ -27,6 +33,10 @@ const Posts = () => {
                   <span className="fw-bold">Published:&nbsp;</span>
                   <span>{dateToStr(post.publishedDate)}</span>
                 </div>
+                <div>
+                  <span className="fw-bold">Category:&nbsp;</span>
+                  <span>{post.selectedCategory}</span>
+                </div>                
                 <Card.Text className="mt-2">
                   { post.shortDescription }
                 </Card.Text>

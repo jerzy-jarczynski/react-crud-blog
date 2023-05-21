@@ -1,3 +1,4 @@
+// Components
 import NavBar from "../NavBar/NavBar";
 
 const Header = () => {

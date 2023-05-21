@@ -1,5 +1,6 @@
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+// Bootstrap
+import { Row, Col } from 'react-bootstrap';
+// Commponents
 import EditPostForm from "../../features/EditPostForm/EditPostForm";
 
 const PostEdit = () => {

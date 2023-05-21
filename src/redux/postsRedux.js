@@ -2,6 +2,7 @@ import { nanoid } from 'nanoid'
 
 //selectors
 export const getAllPosts = state => state.posts;
+export const getPostByCategory = (state, categoryName) => state.posts.filter((post) => post.selectedCategory === categoryName);
 export const getPostById = ({posts}, postId) => posts.find(post => post.id === postId);
 
 // actions

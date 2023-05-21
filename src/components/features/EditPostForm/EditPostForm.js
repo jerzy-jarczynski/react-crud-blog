@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom";
+// Redux
 import { useSelector, useDispatch } from "react-redux";
-import { getPostById } from "../../../redux/postsRedux";
-import { useNavigate, Navigate } from "react-router-dom";
-import { editPost } from "../../../redux/postsRedux";
+import { getPostById, editPost } from "../../../redux/postsRedux";
+// Router
+import { useNavigate, Navigate, useParams } from "react-router-dom";
+// Components
 import PostForm from '../PostForm/PostForm';
 
 const EditPostForm = () => {
@@ -29,6 +30,7 @@ const EditPostForm = () => {
               title={postData.title}
               author={postData.author}
               published={postData.publishedDate}
+              category={postData.selectedCategory}
               shortDescription={postData.shortDescription}
               content={postData.content} />
   );

@@ -1,6 +1,9 @@
+// Redux
 import { useDispatch } from 'react-redux';
 import { addPost } from '../../../redux/postsRedux';
+// Router
 import { useNavigate } from "react-router-dom";
+// Components
 import PostForm from '../PostForm/PostForm';
 
 const AddPostForm = () => {
